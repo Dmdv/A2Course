@@ -1,3 +1,4 @@
+Sample Angular application
 npm install
 
 
