@@ -16,7 +16,7 @@ var AppComponent = (function () {
     AppComponent = __decorate([
         core_1.Component({
             selector: 'my-app',
-            template: "\n        <h1>Hello Angular2 App</h1>\n        <br>Your name: <input type=\"text\" [(ngModel)]=\"name\">\n        <p></p>Hello, {{name}} from Angular2! "
+            template: "\n    <h1>Notes Angular 2 App</h1>\n   <notes></notes>"
         }), 
         __metadata('design:paramtypes', [])
     ], AppComponent);
