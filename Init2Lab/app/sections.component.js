@@ -17,11 +17,15 @@ var SectionsComponent = (function () {
     function SectionsComponent(http) {
         this.http = http;
         this.sectionsUrl = 'sections'; // URL to web api
+        this.sectionChanged = new core_1.EventEmitter();
         this.readSections();
     }
+    SectionsComponent.prototype.ngOnInit = function () {
+    };
     SectionsComponent.prototype.showSection = function (section) {
         console.log("Show section: " + section.title);
         this.activeSection = section.title;
+        this.sectionChanged.emit(this.activeSection);
     };
     SectionsComponent.prototype.readSections = function () {
         var _this = this;
@@ -36,6 +40,10 @@ var SectionsComponent = (function () {
         return this.http.get(this.sectionsUrl)
             .map(function (response) { return response.json(); });
     };
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', core_1.EventEmitter)
+    ], SectionsComponent.prototype, "sectionChanged", void 0);
     SectionsComponent = __decorate([
         core_1.Component({
             selector: 'sections',

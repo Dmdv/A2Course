@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {Http, URLSearchParams} from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/Rx'
@@ -10,12 +10,15 @@ import {Observable} from "rxjs";
     templateUrl: "app/notes.component.html"
 })
 
-export class NotesComponent {
+export class NotesComponent implements OnChanges{
+
+    ngOnChanges(changes: SimpleChanges): void {
+    }
 
     private notesUrl = 'http://localhost:3000/notes';  // URL to web api
 
     text: string;
-    section: string;
+    @Input() section: string;
 
     notes: Note[] = [
         {text:"Note one"},

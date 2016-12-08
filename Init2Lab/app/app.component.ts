@@ -6,5 +6,11 @@ import {Component} from '@angular/core';
 
 })
 export class AppComponent {
+
     name="John";
+    section: string;
+
+    setSection(section:string) {
+        this.section = section;
+    }
 }

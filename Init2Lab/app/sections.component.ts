@@ -2,7 +2,7 @@
  * Created by st11236 on 12/8/2016.
  */
 
-import {Component} from '@angular/core';
+import {Component, OnInit, EventEmitter, Output} from '@angular/core';
 import {Observable} from "rxjs";
 import {Http} from "@angular/http";
 
@@ -11,11 +11,17 @@ import {Http} from "@angular/http";
     templateUrl: "app/sections.component.html"
 })
 
-export class SectionsComponent {
+export class SectionsComponent implements OnInit{
+
+    ngOnInit(): void {
+    }
+
     private sectionsUrl = 'sections';  // URL to web api
     sections: Section[];
-
     activeSection : string;
+
+    @Output() sectionChanged: EventEmitter<string> =
+        new EventEmitter<string>();
 
     constructor(private http: Http) {
         this.readSections();
@@ -24,6 +30,7 @@ export class SectionsComponent {
     showSection(section:Section) {
         console.log("Show section: " + section.title);
         this.activeSection = section.title;
+        this.sectionChanged.emit(this.activeSection);
     }
 
     readSections() {

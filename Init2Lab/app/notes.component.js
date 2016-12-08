@@ -23,6 +23,8 @@ var NotesComponent = (function () {
         ];
         this.readNotes();
     }
+    NotesComponent.prototype.ngOnChanges = function (changes) {
+    };
     NotesComponent.prototype.readNotes = function () {
         var _this = this;
         this.getNotes().subscribe(function (notes) {
@@ -66,6 +68,10 @@ var NotesComponent = (function () {
         return this.http.get(this.notesUrl, { search: params })
             .map(function (response) { return response.json(); });
     };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], NotesComponent.prototype, "section", void 0);
     NotesComponent = __decorate([
         core_1.Component({
             selector: 'notes',
