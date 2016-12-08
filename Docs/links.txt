@@ -1,0 +1,16 @@
+https://www.angularonrails.com
+http://semantic-ui.com
+http://stackoverflow.com/questions/35424790/hosting-angular2-on-heroku
+https://www.linkedin.com/learning/design-patterns-with-python/?trk=profileSelf_nprofile-view_learningFeedm014%3Aa001_369187_learning
+https://angular.io/docs/
+https://angular.io/docs/js/latest/api/
+http://devdocs.io/angular~2_typescript/
+https://docs.angularjs.org/api/ng/service/$http
+https://www.awmoore.com/2015/01/14/setting-up-git-and-cmder/
+https://www.ng-book.com/2/
+https://ionicframework.com/docs/v2/native/
+https://angular.io/docs/js/latest/quickstart.html
+http://www.angular2.com/
+https://angular.io/docs/ts/latest/quickstart.html
+https://angular.io/
+https://www.typescriptlang.org/docs/handbook/mixins.html
