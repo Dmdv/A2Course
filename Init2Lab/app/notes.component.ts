@@ -2,26 +2,20 @@ import {Component} from '@angular/core';
 import {Http, URLSearchParams} from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/Rx'
+import {Observable} from "rxjs";
 //import {Observable} from "rxjs";
 
 @Component({
     selector: 'notes',
-    template: `Notes list:
-                <ul>
-                    <li *ngFor="let note of notes">
-                        {{note.text}} <button (click)="remove(note._id)">remove</button>
-                    </li>
-                </ul>
-                
-                <textarea [(ngModel)]="text"></textarea>
-                <button (click)="add()">Add</button>`
+    templateUrl: "app/notes.component.html"
 })
 
 export class NotesComponent {
 
     private notesUrl = 'http://localhost:3000/notes';  // URL to web api
 
-    text: string
+    text: string;
+    section: string;
 
     notes: Note[] = [
         {text:"Note one"},
@@ -33,15 +27,18 @@ export class NotesComponent {
     }
 
     readNotes() {
-        this.getNotes().then(notes=>{
-            this.notes=notes
+        this.getNotes().subscribe(notes=>{
+
+            console.log("Show notes");
+            console.log(notes);
+            this.notes = notes
             console.log(notes);
         });
     }
 
     add(){
-        console.log(this.text);
-        let note = {text:this.text};
+        console.log("Added note: " + this.text + " " + this.section);
+        let note = { text: this.text, section: this.section };
         this.addNote(note);
     }
 
@@ -65,10 +62,19 @@ export class NotesComponent {
             });
     }
 
-    getNotes(): Promise<Note[]> {
-        return this.http.get(this.notesUrl)
+    getNotes(): Observable<Note[]> {
+        /*return this.http.get(this.notesUrl)
             .toPromise()
-            .then(response => response.json() as Note[]);
+            .then(response => response.json() as Note[]);*/
+
+        console.log("Get notes for section: " + this.section);
+
+        let params: URLSearchParams = new URLSearchParams();
+        params.set('section', this.section);
+        return this.http.get(
+            this.notesUrl,
+            {search:params})
+            .map(response => response.json() as Note[]);
     }
 }
 

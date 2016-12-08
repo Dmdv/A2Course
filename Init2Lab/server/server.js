@@ -1,8 +1,8 @@
 var path = require('path');
 var express = require('express');
 var session = require('express-session');
-var mongo = require('mongodb')
-var bodyParser = require('body-parser')
+var mongo = require('mongodb');
+var bodyParser = require('body-parser');
 
 var ObjectID = mongo.ObjectID;
 
@@ -10,7 +10,6 @@ var app = express();
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
-
 
 var Db = mongo.Db;
 var Server = mongo.Server;
@@ -24,6 +23,10 @@ db.open(function(){
 
     db.collection('notes', function(error, notes) {
         db.notes = notes;
+    });
+
+    db.collection('sections', function(error, sections) {
+        db.sections = sections;
     });
 
 });
@@ -58,6 +61,11 @@ app.delete("/notes", function(req,res) {
     })
 });
 
+app.get("/sections", function(req,res) {
+    db.sections.find(req.query).toArray(function(err, items) {
+        res.send(items);
+    });
+});
 
 /*
 app.get("/notes", function(req,res) {

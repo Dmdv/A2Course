@@ -25,14 +25,16 @@ var NotesComponent = (function () {
     }
     NotesComponent.prototype.readNotes = function () {
         var _this = this;
-        this.getNotes().then(function (notes) {
+        this.getNotes().subscribe(function (notes) {
+            console.log("Show notes");
+            console.log(notes);
             _this.notes = notes;
             console.log(notes);
         });
     };
     NotesComponent.prototype.add = function () {
-        console.log(this.text);
-        var note = { text: this.text };
+        console.log("Added note: " + this.text + " " + this.section);
+        var note = { text: this.text, section: this.section };
         this.addNote(note);
     };
     NotesComponent.prototype.addNote = function (note) {
@@ -55,14 +57,19 @@ var NotesComponent = (function () {
         });
     };
     NotesComponent.prototype.getNotes = function () {
-        return this.http.get(this.notesUrl)
+        /*return this.http.get(this.notesUrl)
             .toPromise()
-            .then(function (response) { return response.json(); });
+            .then(response => response.json() as Note[]);*/
+        console.log("Get notes for section: " + this.section);
+        var params = new http_1.URLSearchParams();
+        params.set('section', this.section);
+        return this.http.get(this.notesUrl, { search: params })
+            .map(function (response) { return response.json(); });
     };
     NotesComponent = __decorate([
         core_1.Component({
             selector: 'notes',
-            template: "Notes list:\n                <ul>\n                    <li *ngFor=\"let note of notes\">\n                        {{note.text}} <button (click)=\"remove(note._id)\">remove</button>\n                    </li>\n                </ul>\n                \n                <textarea [(ngModel)]=\"text\"></textarea>\n                <button (click)=\"add()\">Add</button>"
+            templateUrl: "app/notes.component.html"
         }), 
         __metadata('design:paramtypes', [http_1.Http])
     ], NotesComponent);
