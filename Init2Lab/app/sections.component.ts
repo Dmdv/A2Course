@@ -19,6 +19,7 @@ export class SectionsComponent implements OnInit{
     private sectionsUrl = 'sections';  // URL to web api
     sections: Section[];
     activeSection : string;
+    sectionsReplaceUrl = "/sections/replace";
 
     @Output() sectionChanged: EventEmitter<string> =
         new EventEmitter<string>();
@@ -31,6 +32,25 @@ export class SectionsComponent implements OnInit{
         console.log("Show section: " + section.title);
         this.activeSection = section.title;
         this.sectionChanged.emit(this.activeSection);
+    }
+
+    addSection(title: string) {
+        if (!title) return;
+
+        // check for duplicates
+        if (this.sections.map(s=>s.title).find(t=>t===title)) return;
+
+        const section: Section = { title };
+        this.sections.unshift(section);
+        this.showSection(section);
+        this.writeSections();
+    }
+
+    writeSections() {
+        if (this.sections && this.sections.length>0) {
+            this.http.post(this.sectionsReplaceUrl, this.sections)
+                .subscribe(res => console.log("replaced", res));
+        }
     }
 
     readSections() {
@@ -52,6 +72,6 @@ export class SectionsComponent implements OnInit{
 }
 
 interface Section {
-    _id: string;
+    _id?: string;
     title: string;
 }

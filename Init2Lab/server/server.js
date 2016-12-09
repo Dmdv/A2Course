@@ -28,7 +28,20 @@ db.open(function(){
     db.collection('sections', function(error, sections) {
         db.sections = sections;
     });
+});
 
+app.post("/sections/replace", function(req,resp) {
+    // do not clear the list
+    if (req.body.length==0) {
+        resp.end();
+    }
+    db.sections.remove({}, function(err, res) {
+        if (err) console.log(err);
+        db.sections.insert(req.body, function(err, res) {
+            if (err) console.log("err after insert",err);
+            resp.end();
+        });
+    });
 });
 
 // express.static - откуда грузятся статические файлы

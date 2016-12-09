@@ -17,6 +17,7 @@ var SectionsComponent = (function () {
     function SectionsComponent(http) {
         this.http = http;
         this.sectionsUrl = 'sections'; // URL to web api
+        this.sectionsReplaceUrl = "/sections/replace";
         this.sectionChanged = new core_1.EventEmitter();
         this.readSections();
     }
@@ -26,6 +27,23 @@ var SectionsComponent = (function () {
         console.log("Show section: " + section.title);
         this.activeSection = section.title;
         this.sectionChanged.emit(this.activeSection);
+    };
+    SectionsComponent.prototype.addSection = function (title) {
+        if (!title)
+            return;
+        // check for duplicates
+        if (this.sections.map(function (s) { return s.title; }).find(function (t) { return t === title; }))
+            return;
+        var section = { title: title };
+        this.sections.unshift(section);
+        this.showSection(section);
+        this.writeSections();
+    };
+    SectionsComponent.prototype.writeSections = function () {
+        if (this.sections && this.sections.length > 0) {
+            this.http.post(this.sectionsReplaceUrl, this.sections)
+                .subscribe(function (res) { return console.log("replaced", res); });
+        }
     };
     SectionsComponent.prototype.readSections = function () {
         var _this = this;
