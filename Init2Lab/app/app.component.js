@@ -13,9 +13,6 @@ var AppComponent = (function () {
     function AppComponent() {
         this.name = "John";
     }
-    AppComponent.prototype.setSection = function (section) {
-        this.section = section;
-    };
     AppComponent = __decorate([
         core_1.Component({
             selector: 'my-app',

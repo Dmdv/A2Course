@@ -14,3 +14,9 @@ http://www.angular2.com/
 https://angular.io/docs/ts/latest/quickstart.html
 https://angular.io/
 https://www.typescriptlang.org/docs/handbook/mixins.html
+http://coffeescript.org/#classes
+https://golanglibs.com/
+https://github.com/hooklift/gowsdl
+http://billpatrianakos.me/blog/2015/06/09/simple/
+http://www.maori.geek.nz/why_should_you_use_coffeescript_instead_of_javascript/
+https://github.com/hooklift/gowsdl

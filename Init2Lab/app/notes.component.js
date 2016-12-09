@@ -12,7 +12,6 @@ var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
 require('rxjs/add/operator/toPromise');
 require('rxjs/Rx');
-//import {Observable} from "rxjs";
 var NotesComponent = (function () {
     function NotesComponent(http) {
         this.http = http;

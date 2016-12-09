@@ -3,7 +3,6 @@ import {Http, URLSearchParams} from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/Rx'
 import {Observable} from "rxjs";
-//import {Observable} from "rxjs";
 
 @Component({
     selector: 'notes',

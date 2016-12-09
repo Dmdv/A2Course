@@ -5,12 +5,7 @@ import {Component} from '@angular/core';
     templateUrl: "app/app.component.html"
 
 })
+
 export class AppComponent {
-
     name = "John";
-    section: string;
-
-    setSection(section: string) {
-        this.section = section;
-    }
 }
