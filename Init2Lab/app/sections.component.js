@@ -13,13 +13,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var http_1 = require("@angular/http");
+var ng2_dragula_1 = require("ng2-dragula");
 var SectionsComponent = (function () {
-    function SectionsComponent(http) {
+    function SectionsComponent(http, dragulaService) {
         this.http = http;
+        this.dragulaService = dragulaService;
         this.sectionsUrl = 'sections'; // URL to web api
         this.sectionsReplaceUrl = "/sections/replace";
         this.sectionChanged = new core_1.EventEmitter();
         this.readSections();
+        dragulaService.drop.subscribe(this.onDrop.bind(this));
     }
     SectionsComponent.prototype.ngOnInit = function () {
     };
@@ -27,6 +30,16 @@ var SectionsComponent = (function () {
         console.log("Show section: " + section.title);
         this.activeSection = section.title;
         this.sectionChanged.emit(this.activeSection);
+    };
+    SectionsComponent.prototype.onDrop = function (value) {
+        var bag = value[0], elementMoved = value[1], targetContainer = value[2], srcContainer = value[3];
+        if (targetContainer.children) {
+            var arr = Array.from(targetContainer.children);
+            this.sections = arr.map(function (li) {
+                return { title: li.textContent.trim() };
+            });
+            this.writeSections().subscribe();
+        }
     };
     SectionsComponent.prototype.addSection = function (title) {
         if (!title)
@@ -37,12 +50,11 @@ var SectionsComponent = (function () {
         var section = { title: title };
         this.sections.unshift(section);
         this.showSection(section);
-        this.writeSections();
+        this.writeSections().subscribe();
     };
     SectionsComponent.prototype.writeSections = function () {
         if (this.sections && this.sections.length > 0) {
-            this.http.post(this.sectionsReplaceUrl, this.sections)
-                .subscribe(function (res) { return console.log("replaced", res); });
+            return this.http.post(this.sectionsReplaceUrl, this.sections);
         }
     };
     SectionsComponent.prototype.readSections = function () {
@@ -67,7 +79,7 @@ var SectionsComponent = (function () {
             selector: 'sections',
             templateUrl: "app/sections.component.html"
         }), 
-        __metadata('design:paramtypes', [http_1.Http])
+        __metadata('design:paramtypes', [http_1.Http, ng2_dragula_1.DragulaService])
     ], SectionsComponent);
     return SectionsComponent;
 }());

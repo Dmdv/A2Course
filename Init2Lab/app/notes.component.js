@@ -60,8 +60,8 @@ var NotesComponent = (function () {
     };
     NotesComponent.prototype.getNotes = function () {
         /*return this.http.get(this.notesUrl)
-            .toPromise()
-            .then(response => response.json() as Note[]);*/
+         .toPromise()
+         .then(response => response.json() as Note[]);*/
         console.log("Get notes for section: " + this.section);
         var params = new http_1.URLSearchParams();
         params.set('section', this.section);

@@ -10,7 +10,7 @@ import {Observable} from "rxjs";
     templateUrl: "app/notes.component.html"
 })
 
-export class NotesComponent implements OnChanges{
+export class NotesComponent implements OnChanges {
 
     ngOnChanges(changes: SimpleChanges): void {
     }
@@ -21,8 +21,8 @@ export class NotesComponent implements OnChanges{
     @Input() section: string;
 
     notes: Note[] = [
-        {text:"Note one"},
-        {text:"Note two"}
+        {text: "Note one"},
+        {text: "Note two"}
     ]
 
     constructor(private http: Http) {
@@ -30,7 +30,7 @@ export class NotesComponent implements OnChanges{
     }
 
     readNotes() {
-        this.getNotes().subscribe(notes=>{
+        this.getNotes().subscribe(notes => {
 
             console.log("Show notes");
             console.log(notes);
@@ -39,13 +39,13 @@ export class NotesComponent implements OnChanges{
         });
     }
 
-    add(){
+    add() {
         console.log("Added note: " + this.text + " " + this.section);
-        let note = { text: this.text, section: this.section };
+        let note = {text: this.text, section: this.section};
         this.addNote(note);
     }
 
-    addNote(note:Note) {
+    addNote(note: Note) {
         this.http.post(this.notesUrl, note).toPromise()
             .then(response => {
                 console.log("note sent, response", response);
@@ -53,10 +53,10 @@ export class NotesComponent implements OnChanges{
             });
     }
 
-    remove(id:string) {
+    remove(id: string) {
         let params: URLSearchParams = new URLSearchParams();
         params.set('id', id);
-        this.http.delete(this.notesUrl, { search: params })
+        this.http.delete(this.notesUrl, {search: params})
             .toPromise()
             .then(response => {
                 console.log(
@@ -67,8 +67,8 @@ export class NotesComponent implements OnChanges{
 
     getNotes(): Observable<Note[]> {
         /*return this.http.get(this.notesUrl)
-            .toPromise()
-            .then(response => response.json() as Note[]);*/
+         .toPromise()
+         .then(response => response.json() as Note[]);*/
 
         console.log("Get notes for section: " + this.section);
 
@@ -76,7 +76,7 @@ export class NotesComponent implements OnChanges{
         params.set('section', this.section);
         return this.http.get(
             this.notesUrl,
-            {search:params})
+            {search: params})
             .map(response => response.json() as Note[]);
     }
 }

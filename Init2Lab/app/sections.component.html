@@ -7,7 +7,7 @@
     </span>
 </div>
 
-<ul class="list-group">
+<ul class="list-group" [dragula]='"sections"'>
     <li *ngFor="let section of sections"
         [ngClass]="{active:section.title==activeSection }"
         class="list-group-item"
